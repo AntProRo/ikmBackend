@@ -438,7 +438,8 @@ def function2():
 
 file_poo= os.path.join(settings.FILES_DIR,"test.pdf")  
 
-def documentAnalysis(filename):    
+def documentAnalysis(filename): 
+        
             os.remove(file_poo)
             file_path = os.path.join(settings.FILES_DIR,filename)
             default_path = os.path.join(settings.NEW_NAME_PDF)
