@@ -197,6 +197,7 @@ SITE_NAME = 'IKM WEB'
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FILES_DIR = os.path.abspath(os.path.join(BASE_DIR, './virtualStorage/'))
 #NEW_NAME_PDF = os.path.join(FILES_DIR, 'foo.pdf')
+NEW_NAME_PDF = os.path.join(FILES_DIR, 'test.pdf') 
 
 DJOSER = {
     'LOGIN_FIELD': 'email',
