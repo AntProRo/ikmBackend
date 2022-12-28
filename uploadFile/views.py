@@ -142,7 +142,7 @@ def CircleCV():
             newListArea[i]["value"] = newListArea[i]["value"] +1
     
        
-    print(newListArea)
+    #print(newListArea)
     return newListArea   
     # Make python sleep for unlimited time
 
@@ -316,7 +316,6 @@ def functio7():
     listDataLevelUp = []
     listDataLevelUp.append(FooterRowLevelUp(CroppedLevelUpRow1,"Work Speed/Accuracy"))
     listDataLevelUp.append(FooterRowLevelUp(CroppedLevelUpRow2,"Application Ability"))
-    print("final")
     #✅Return to Client
    
     return Response({"scoreBar": dataSkills, "name": name, "concepts": javaOrder,"subjectCoverage":CircleCV(),"FooterLevel":listDataLevelUp,"dataMiner":dataMiner})
@@ -439,10 +438,10 @@ def function2():
 file_poo= os.path.join(settings.FILES_DIR,"test.pdf")  
 
 def documentAnalysis(filename): 
-        
+            print("this line work")
             os.remove(file_poo)
             file_path = os.path.join(settings.FILES_DIR,filename)
-            default_path = os.path.join(settings.NEW_NAME_PDF)
+            #default_path = os.path.join(settings.NEW_NAME_PDF)
             os.rename(file_path,testpdf) 
             return function2()
             """ os.rename(file_path,"./virtualStorage/test.pdf") """
@@ -458,7 +457,7 @@ class UploadDocument(APIView):
                 myfile = request.FILES['upload']
                 
                 fs = FileSystemStorage(location=folder) #defaults to   MEDIA_ROOT  
-                filename = fs.save(myfile.name, myfile)
+                fs.save(myfile.name, myfile)
                 return documentAnalysis(myfile.name)
         except Exception:
             return {"message": "There was an error uploading the file"}

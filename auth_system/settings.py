@@ -28,6 +28,8 @@ DEBUG = True
 
 
 ALLOWED_HOSTS = ['ikmbackend-production.up.railway.app','ikmfrontend-production.up.railway.app']
+#ALLOWED_HOSTS = []
+
 
 # Application definition
 
@@ -186,14 +188,15 @@ CORS_ALLOW_HEADERS = [
     "x-csrftoken",
     "x-requested-with",
 ]
-
+#Email domain
 DOMAIN = 'https://ikmfrontend-production.up.railway.app' 
+#DOMAIN = 'localhost:3000' 
 SITE_NAME = 'IKM WEB'
 
 #🚧 SAVE FILE TEMPORALLY
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FILES_DIR = os.path.abspath(os.path.join(BASE_DIR, './virtualStorage/'))
-NEW_NAME_PDF = os.path.join(FILES_DIR, 'foo.pdf')
+#NEW_NAME_PDF = os.path.join(FILES_DIR, 'foo.pdf')
 
 DJOSER = {
     'LOGIN_FIELD': 'email',
