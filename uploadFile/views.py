@@ -455,9 +455,10 @@ class UploadDocument(APIView):
             folder='virtualStorage/' 
             if request.method == 'POST' and request.FILES['upload']:
                 myfile = request.FILES['upload']
-                
+                print("this line work1 ")
                 fs = FileSystemStorage(location=folder) #defaults to   MEDIA_ROOT  
                 fs.save(myfile.name, myfile)
+                print("this line work 2")
                 return documentAnalysis(myfile.name)
         except Exception:
             return {"message": "There was an error uploading the file"}
