@@ -27,7 +27,7 @@ SECRET_KEY = 'g=!&gyqa-qj3q(=-(=$gxrcb_-zb4l)b!#6xa2hrj_m5kxyet)'
 DEBUG = True
 
 
-ALLOWED_HOST = ['ikmbackend-production.up.railway.app']
+ALLOWED_HOSTS = ['ikmbackend-production.up.railway.app']
 
 # Application definition
 
