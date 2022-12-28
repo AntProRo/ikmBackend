@@ -389,6 +389,7 @@ def function4():
     return function5()
 
 def function3():
+    print("this line work 7") 
     img = cv2.imread(page0)
     # Cropping an image
     #cropped_image = img[2050:3300, 850:2900]
@@ -414,7 +415,7 @@ def function3():
     #py AreaG 
     cropped_image_footerArea = img[3500:3600, 2500:3650]    
     cv2.imwrite(AreaG,cropped_image_footerArea)
-
+    print("this line work 8") 
 
     return function4()
     
@@ -429,7 +430,7 @@ def function2():
     elif platform.system() == "Linux":
         pages = convert_from_path(testpdf, 500)
         for i in range(len(pages)):
-            pages[i].save('./virtualStorage/page' + str(i) + '.jpg', 'JPEG')
+            pages[i].save('virtualStorage/page' + str(i) + '.jpg', 'JPEG')
     #✅Function Done
     print("this line work 6") 
     return function3()
