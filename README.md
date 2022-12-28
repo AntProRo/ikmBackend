@@ -6,6 +6,8 @@ create a folder named IKMWEB
 # clone this repository inside of your folder
 https://github.com/AntProRo/ikmBackend.git
 
+and rename the folder "backend" instead of ikmBackend
+
 # run this line
 pip install - r requirements.txt
 
