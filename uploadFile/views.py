@@ -433,10 +433,10 @@ def function2():
         default_path = os.path.join(settings.NEW_NAME_PDF)
         print(testpdf,default_path)
         
-        pages = convert_from_path(testpdf) 
+        pages = convert_from_path(testpdf,500) 
         print("pages",pages) 
-        """ for i in range(len(pages)):
-            pages[i].save('/virtualStorage/page' + str(i) + '.jpg', 'JPEG') """ 
+        for i in range(len(pages)):
+            pages[i].save('./virtualStorage/page' + str(i) + '.jpg', 'JPEG') 
        
     #✅Function Done
     print("this line work 6") 
