@@ -422,14 +422,14 @@ def function3():
 ############################
 
 def function2():
+    folder='virtualStorage/'
+    fs = FileSystemStorage(location=folder)
     print("this line work 5") 
     if platform.system() == "Windows":     
         pages = convert_from_path(testpdf, 500,poppler_path= "./bin")
         for i in range(len(pages)):
             pages[i].save('./virtualStorage/page' + str(i) + '.jpg', 'JPEG')
-    elif platform.system() == "Linux":
-        folder='virtualStorage/'
-        fs = FileSystemStorage(location=folder)
+    else:
         pages = convert_from_path(testpdf, 500)
         for i in range(len(pages)):
             fs.save('page' + str(i) + '.jpg', 'JPEG')
