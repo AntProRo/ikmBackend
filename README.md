@@ -18,3 +18,7 @@ pip install - r requirements.txt
 # and finally
 
 python manage.py runserver     
+
+# Web page
+
+https://railway.app/project/e2f4cb1d-7d26-4120-a5fb-c74e2391f601/service/87996043-e129-4018-854d-df537d905283
