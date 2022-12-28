@@ -9,8 +9,12 @@ https://github.com/AntProRo/ikmBackend.git
 # run this line
 pip install - r requirements.txt
 
-# and maybe those lines
+# and maybe these lines
 
 1. python manage.py makemigrations
 
 2. python manage.py migrate
+
+# and finally
+
+python manage.py runserver     
