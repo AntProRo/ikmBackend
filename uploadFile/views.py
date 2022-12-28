@@ -430,10 +430,10 @@ def function2():
         for i in range(len(pages)):
             pages[i].save('./virtualStorage/page' + str(i) + '.jpg', 'JPEG')
     else:
-        print("this line work linux") 
+        print("this line work linux",platform.system()) 
         pages = convert_from_path(testpdf, 500)
         for i in range(len(pages)):
-            pages[i].save('./virtualStorage/page' + str(i) + '.jpg', 'JPEG')
+            pages[i].save('virtualStorage/page' + str(i) + '.jpg', 'JPEG')
        
     #✅Function Done
     print("this line work 6") 
