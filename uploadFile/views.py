@@ -421,6 +421,7 @@ def function3():
 ############################
 
 def function2():
+    print("this line work 5") 
     if platform.system() == "Windows":     
         pages = convert_from_path(testpdf, 500,poppler_path= "./bin")
         for i in range(len(pages)):
@@ -430,6 +431,7 @@ def function2():
         for i in range(len(pages)):
             pages[i].save('./virtualStorage/page' + str(i) + '.jpg', 'JPEG')
     #✅Function Done
+    print("this line work 6") 
     return function3()
 
 
@@ -438,11 +440,13 @@ def function2():
 file_poo= os.path.join(settings.FILES_DIR,"test.pdf")  
 
 def documentAnalysis(filename): 
-            print("this line work")
+            print("this line work 3")
             os.remove(file_poo)
             file_path = os.path.join(settings.FILES_DIR,filename)
             #default_path = os.path.join(settings.NEW_NAME_PDF)
-            os.rename(file_path,testpdf) 
+          
+            os.rename(file_path,testpdf)
+            print("this line work 4") 
             return function2()
             """ os.rename(file_path,"./virtualStorage/test.pdf") """
 
