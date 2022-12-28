@@ -432,7 +432,7 @@ def function2():
         fs = FileSystemStorage(location=folder)
         pages = convert_from_path(testpdf, 500)
         for i in range(len(pages)):
-            fs.save('./virtualStorage/page' + str(i) + '.jpg', 'JPEG')
+            fs.save('page' + str(i) + '.jpg', 'JPEG')
     #✅Function Done
     print("this line work 6") 
     return function3()
