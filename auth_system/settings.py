@@ -28,8 +28,8 @@ SECRET_KEY = 'g=!&gyqa-qj3q(=-(=$gxrcb_-zb4l)b!#6xa2hrj_m5kxyet)'
 DEBUG = True
 
 
-#ALLOWED_HOSTS = ['ikmbackend-production.up.railway.app','ikmfrontend-production.up.railway.app'] 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ikmbackend-production.up.railway.app','ikmfrontend-production.up.railway.app'] 
+#ALLOWED_HOSTS = []
 
 
 # Application definition
