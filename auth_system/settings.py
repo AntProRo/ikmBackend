@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 from datetime import timedelta
 import os
+from os import environ
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -27,8 +28,8 @@ SECRET_KEY = 'g=!&gyqa-qj3q(=-(=$gxrcb_-zb4l)b!#6xa2hrj_m5kxyet)'
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['ikmbackend-production.up.railway.app','ikmfrontend-production.up.railway.app']
-#ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = ['ikmbackend-production.up.railway.app','ikmfrontend-production.up.railway.app'] 
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -90,7 +91,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
        'NAME': 'railway',
        'USER': 'postgres',
-       'PASSWORD':'6ZhPMjqqg2KLPHa4MJFP',
+       'PASSWORD':'dnEF4QuezCPKmtnEjWXf',
        'PORT':'6998',
         'HOST':'containers-us-west-153.railway.app'
     }
@@ -189,8 +190,7 @@ CORS_ALLOW_HEADERS = [
     "x-requested-with",
 ]
 #Email domain
-DOMAIN = 'https://ikmfrontend-production.up.railway.app' 
-#DOMAIN = 'localhost:3000' 
+DOMAIN = 'localhost:3000' or 'https://ikmfrontend-production.up.railway.app'
 SITE_NAME = 'IKM WEB'
 
 #🚧 SAVE FILE TEMPORALLY
