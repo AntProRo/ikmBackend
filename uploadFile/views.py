@@ -268,7 +268,8 @@ def functio7():
             dataMiner[i]={"label":"Score","value":dataMiner[i]}
         if(i == 6):
             deletePercentile=dataMiner[i]
-            dataMiner[i]={"label":"Percentile","value":deletePercentile.rstrip(deletePercentile[-1])}
+            #dataMiner[i]={"label":"Percentile","value":deletePercentile.rstrip(deletePercentile[-1])}
+            dataMiner[i]={"label":"Percentile","value":dataMiner[i]}
         if(i == 7):
             dataMiner[i]={"label":"Subject Coverage","value":dataMiner[i]}   
 
