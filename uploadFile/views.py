@@ -202,7 +202,7 @@ def FooterRowLevelUp(image,context):
         elif len(contours) == 90:
             label = "Limited"
     #✅Function Done
-    return {"label":label,"context":context}
+    return {"value":label,"context":context}
 
 def nextword(target, source):
     for i, w in enumerate(source):
@@ -255,23 +255,24 @@ def functio7():
 
     for i in range(len(dataMiner)):
         if(i == 0):
-            dataMiner[i]={"label":"Assessment Result for","name":dataMiner[i]}
+            dataMiner[i]={"label":"Assessment Result for","subjectName":dataMiner[i]}
         if(i == 1):
-            dataMiner[i]={"label":"ID","value":dataMiner[i]}
+            dataMiner[i]={"label":"ID","subjectId":dataMiner[i]}
         if(i == 2):
-            dataMiner[i]={"label":"Date","value":dataMiner[i]}
+            dataMiner[i]={"label":"Date","subjectDate":dataMiner[i]}
         if(i == 3):
-            dataMiner[i]={"label":"Subject","value":dataMiner[i]}
+            dataMiner[i]={"label":"Subject","subjectInterViewName":dataMiner[i]}
         if(i == 4):
-            dataMiner[i]={"label":"Client","value":dataMiner[i]}
+            dataMiner[i]={"label":"Client","subjectClient":dataMiner[i]}
         if(i == 5):
-            dataMiner[i]={"label":"Score","value":dataMiner[i]}
+            dataMiner[i]={"label":"Score","subjectScore":dataMiner[i]}
         if(i == 6):
-            deletePercentile=dataMiner[i]
+            #deletePercentile=dataMiner[i]
             #dataMiner[i]={"label":"Percentile","value":deletePercentile.rstrip(deletePercentile[-1])}
-            dataMiner[i]={"label":"Percentile","value":dataMiner[i]}
+            dataMiner[i]={"label":"Percentile","subjectPercentile":dataMiner[i]}
         if(i == 7):
-            dataMiner[i]={"label":"Subject Coverage","value":dataMiner[i]}   
+
+            dataMiner[i]={"label":"SubjectCoverage","subjectSubjectCoverage":dataMiner[i]}   
 
     keywords = ["Agile Concepts",
                 "Design Patterns",
