@@ -202,7 +202,7 @@ def FooterRowLevelUp(image,context):
         elif len(contours) == 90:
             label = "Limited"
     #✅Function Done
-    return {"value":label,"context":context}
+    return {"label":label,"context":context}
 
 def nextword(target, source):
     for i, w in enumerate(source):
