@@ -180,15 +180,15 @@ def FooterRowLevelUp(image,context):
     contours,hierarchy = cv2.findContours(thresh, cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
     if(context == "Work Speed/Accuracy"):
         print(len(contours))
-        if len(contours) == 99:
+        if len(contours) == 99 or len(contours) == 100:
             label="Above Average"
-        elif len(contours) == 90:
+        elif len(contours) == 90 or len(contours) == 91:
             label ="Average"
-        elif len(contours) == 89:
+        elif len(contours) == 89 or len(contours) == 90:
             label = "Very Slow"
-        elif len(contours) == 93:
+        elif len(contours) == 93 or len(contours) == 94:
             label = "Very Fast"
-        elif len(contours) == 101:
+        elif len(contours) == 101 or len(contours) == 102:
             label = "Below Average"
     elif(context == "Application Ability"):
         cv2.imwrite(CroppedLevelUpRow1Blackest, thresh)
@@ -203,7 +203,7 @@ def FooterRowLevelUp(image,context):
         elif len(contours) == 90:
             label = "Limited"
     #✅Function Done
-    return {"label":label,"context":context}
+    return {"value":label,"context":context}
 
 def nextword(target, source):
     for i, w in enumerate(source):
