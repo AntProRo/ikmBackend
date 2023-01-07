@@ -179,6 +179,7 @@ def FooterRowLevelUp(image,context):
     # find the contours
     contours,hierarchy = cv2.findContours(thresh, cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
     if(context == "Work Speed/Accuracy"):
+        print(len(contours))
         if len(contours) == 99:
             label="Above Average"
         elif len(contours) == 90:
