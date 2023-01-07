@@ -190,7 +190,8 @@ CORS_ALLOW_HEADERS = [
     "x-requested-with",
 ]
 #Email domain
-DOMAIN = 'localhost:3000' or 'https://ikmfrontend-production.up.railway.app'
+DOMAIN = 'https://ikmfrontend-production.up.railway.app'
+#DOMAIN ='localhost:3000'
 SITE_NAME = 'IKM WEB'
 
 #🚧 SAVE FILE TEMPORALLY
