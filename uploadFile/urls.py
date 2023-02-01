@@ -10,4 +10,5 @@ from uploadFile import views
 
 urlpatterns = [
     path('upload/', views.UploadDocument.as_view(), name='upload'),
+    
 ]

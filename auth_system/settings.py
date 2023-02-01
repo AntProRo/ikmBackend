@@ -28,13 +28,14 @@ SECRET_KEY = 'g=!&gyqa-qj3q(=-(=$gxrcb_-zb4l)b!#6xa2hrj_m5kxyet)'
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['ikmbackend-production.up.railway.app','ikmfrontend-production.up.railway.app'] 
-#ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = ['ikmbackend-production.up.railway.app','ikmfrontend-production.up.railway.app'] 
+ALLOWED_HOSTS = []
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'recruiter_options',
     'uploadFile',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -89,13 +90,14 @@ WSGI_APPLICATION = 'auth_system.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-       'NAME': 'railway',
-       'USER': 'postgres',
-       'PASSWORD':'dnEF4QuezCPKmtnEjWXf',
-       'PORT':'6998',
-        'HOST':'containers-us-west-153.railway.app'
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD':'postgres',
+        'PORT':'5432',
+        'HOST':'localhost'
+        # HOST:127.0.0.1, if you are trying to connect a MANAGER database
     }
-}
+} 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
@@ -166,7 +168,7 @@ SIMPLE_JWT = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "https://ikmfrontend-production.up.railway.app"
+    #"https://ikmfrontend-production.up.railway.app"
 ]
 
 CORS_ALLOW_METHODS = [
@@ -190,8 +192,8 @@ CORS_ALLOW_HEADERS = [
     "x-requested-with",
 ]
 #Email domain
-DOMAIN = 'ikmfrontend-production.up.railway.app'
-#DOMAIN ='localhost:3000'
+#DOMAIN = 'ikmfrontend-production.up.railway.app'
+DOMAIN ='localhost:3000'
 SITE_NAME = 'IKM WEB'
 
 #🚧 SAVE FILE TEMPORALLY
