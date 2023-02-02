@@ -7,7 +7,7 @@ def sortFn(dict):
 def correctSpillingJAVAPractice(allSkills,stringCleaned):
     skillOrderHightToLow = []
     findLabel = str()
-    print(allSkills)
+    
     for items in allSkills:
         if items.nameSubSkill == 'rest web services':
             findLabel = "rest w eb services"
@@ -22,17 +22,18 @@ def correctSpillingJAVAPractice(allSkills,stringCleaned):
 
     skillOrderHightToLow.sort(key=sortFn)
     skillOrderHightToLow.reverse()
+  
     return skillOrderHightToLow
 
 class correctSpilling:
     def findSkillPerCandidateFunction(subjectIdToFindEverySkill,stringCleaned):
 
         allSkills = SubjectSkills.objects.filter(subjectId=subjectIdToFindEverySkill)
-        print("send",subjectIdToFindEverySkill)
+       
         subject = Subject.objects.get(id=subjectIdToFindEverySkill)
         stringCleaned =stringCleaned.lower()
 
-        print(subject.nameSubject)
+       
         if(subject.nameSubject == 'mdc basic java interview 2'):
             return correctSpillingJAVAPractice(allSkills,stringCleaned)
 
