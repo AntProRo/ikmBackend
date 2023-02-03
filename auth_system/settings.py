@@ -94,7 +94,8 @@ DATABASES = {
         'USER': 'postgres',
         'PASSWORD':'postgres',
         'PORT':'5432',
-        'HOST':'localhost'
+        'HOST':os.getenv('DB_HOST', 'localhost'),
+        #'HOST':'localhost' environment, db in all containers 
         # HOST:127.0.0.1, if you are trying to connect a MANAGER database
     }
 } 
