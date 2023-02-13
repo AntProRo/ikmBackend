@@ -9,5 +9,7 @@ urlpatterns = [
     path('createSkills/<int:id>/',views.SkillController.as_view(),name='saveSkills'),
     path('getAllSkillsBySubject/<int:id>/',views.getSkillsBySubject.as_view(),name='getSkills'),
     #Delete data
-    path('deletePractice/<int:id>/',views.DeletePractice.as_view(),name='deletePracticeById')
+    path('deletePractice/<int:id>/',views.DeletePractice.as_view(),name='deletePracticeById'),
+    path('deleteCandidate/<int:id>/',views.DeleteCandidate.as_view(),name='deleteCandidateByID'),
+    path('deleteSkill/<int:id>/',views.DeleteSkill.as_view(),name='deleteSkillByID')
 ]

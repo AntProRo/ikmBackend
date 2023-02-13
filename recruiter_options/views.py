@@ -23,45 +23,29 @@ from uploadFile.models import (
 # Create your views here.
 # Global data#
 idCandidate = object()
-
-
 class processData(APIView):
     permission_classes = [
     IsAuthenticated,
 ]
+    
     # Get data
     def get (self,request):
             data = Candidate.objects.filter(recruiter=request.user)
-            
             d = data.all().select_related('SubjectUserAccount')
-
-            #f = Score.objects.all().select_related('subjectSkillId','score')
             result= []
-            
-
             for i in d:
-                #i.SubjectUserAccount.all().select_related('SubjectUserAccount')
-                #print(i.SubjectUserAccount.nameSubject )
-                #print(i.SubjectUserAccount.practiceId.namePractice )
-        
-            
                 scoreCandidate = Score.objects.filter(candidateId = i.id).select_related('subjectSkillId')
-                coverageCandidate = SubjectCoverage.objects.get(candidateId = i.id) 
-                #print(i.SubjectUserAccount.nameSubject)
-                result.append({"profileData":i ,"scoreData":scoreCandidate,"subjectCoverage":coverageCandidate})
+                result.append({"profileData":i ,"scoreData":scoreCandidate,})
 
             data = []
-         
-            
             for i in range(len(result)):
-            
-                
                 skill =[]
                 stringToDate =result[i]["profileData"].date
                 createdAt = result[i]["profileData"].created_at
                 updatedAt = result[i]["profileData"].updated_at
                 
-                userData = {"SubjectUserAccount":result[i]["profileData"].SubjectUserAccount.id,
+                userData = {"id":result[i]["profileData"].id,
+                    "SubjectUserAccount":result[i]["profileData"].SubjectUserAccount.id,
                     "bullHornId":result[i]["profileData"].bullHornId,
                     "nameCandidate":result[i]["profileData"].nameCandidate,
                     "date": stringToDate.strftime("%m/%d/%Y") ,
@@ -74,34 +58,15 @@ class processData(APIView):
                     "updatedAt": updatedAt.strftime("%m/%d/%Y"),
 
                     "practiceId":result[i]["profileData"].SubjectUserAccount.practiceId.id}
-
-                userCoverage = {"weak":result[i]["subjectCoverage"].weak,
-                    "proficient":result[i]["subjectCoverage"].proficient, 
-                    "strong":result[i]["subjectCoverage"].strong,
-                    "workSpeedAccuracy":result[i]["subjectCoverage"].workSpeedAccuracy,
-                    "applicationAbility":result[i]["subjectCoverage"].applicationAbility
-                    }
-
-                
-                #print(i["profileData"].nameCandidate)
-                #print(i["profileData"].SubjectUserAccount.nameSubject,i["profileData"].SubjectUserAccount.id )
-                #print(i["profileData"].SubjectUserAccount.practiceId.namePractice,i["profileData"].SubjectUserAccount.practiceId.id )
                 for j in result[i]["scoreData"]:
                     skill.append({"idSkill":j.subjectSkillId.id,"nameSkill":j.subjectSkillId.nameSubSkill,"score":j.score}),
                     #print(j.score,j.subjectSkillId.nameSubSkill,j.subjectSkillId.id)
 
-                data.append({"userData":userData, "userSkillScore":skill, "userCoverage":userCoverage})
-                    
-      
-                     
-                #print(i["subjectCoverage"].weak,i["subjectCoverage"].workSpeedAccuracy)
-         
-        
+                data.append({"userData":userData, "userSkillScore":skill})
             foo = json.dumps(data)
             return HttpResponse(foo)
-  
 
-        #save document
+        #save documents
     def post(self, request):
         current_user = request.user
         # print (current_user.id)
@@ -145,22 +110,25 @@ class processData(APIView):
                     score.score = value
                     score.candidateId = Candidate.objects.get(id=candidate.id)
                     score.save()
-        # save rest data
-        coverage = SubjectCoverage()
-        coverage.workSpeedAccuracy = body["workSpeedAccuracy"]
-        coverage.applicationAbility = body["applicationAbility"]
-        coverage.weak = body["circleBar"]["weak"] 
-        coverage.proficient = body["circleBar"]["proficient"] 
-        coverage.strong = body["circleBar"]["strong"] 
-        coverage.candidateId = Candidate.objects.get(id=candidate.id)
-        coverage.save()
 
         return Response({"message": "Document saved"})
 # user logged Controller
 
+class DeleteCandidate(APIView):
+    def delete(self,request,id):
+        get_object_or_404(Candidate,id=id)
+        findCandidate = Candidate.objects.get(id=id)
+        findCandidate.delete()
+        return Response({"message": "Candidate Deleted"})
+
+class DeleteSkill(APIView):
+    def delete(self,request,id):
+        get_object_or_404(SubjectSkills,id=id)
+        findSkill = SubjectSkills.objects.get(id=id)
+        findSkill.delete()
+        return Response({"message": "Skill Deleted"})
 
 class PracticeControllers(APIView):
-
     def post(self, request):
         body = json.loads(request.body)
 
@@ -179,7 +147,6 @@ class PracticeControllers(APIView):
 class DeletePractice(APIView):
     def delete(self,request,id):
         get_object_or_404(Practice, id=id)
-        print(id)
         findPractice = Practice.objects.get(id=id)
         findPractice.delete()
         return Response({"message": "Practice deleted"})
@@ -203,8 +170,6 @@ class GetAllSubjectsAndPractices(APIView):
             #listPractice.append({"idPractice":i.id,"namePractice":i.namePractice}
         result = listSubject
         return JsonResponse(result,safe=False)
-
-
 
 class SubjectController(APIView):
     def post(self, request, id):
@@ -254,6 +219,3 @@ class getSkillsBySubject(APIView):
 
         return HttpResponse(result)
         
-            # your logic here
-        return HttpResponse(status=500)
-
