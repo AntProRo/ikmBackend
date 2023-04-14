@@ -76,7 +76,6 @@ def findSubjectPracticeFunction(subjectToFind):
     for items in AllSubject:
         itemName = items.nameSubject.lower()
         itemId = items.id
-        print("#################################################################")
         print(itemName, subjectToFind.lower())
         proximity = fuzz.ratio(itemName, subjectToFind.lower())
         print(proximity)
@@ -96,6 +95,12 @@ def function7():
         page_1_object = pdf.getPage(0)
         page_1_text = page_1_object.extractText()
         result = page_1_text.split()
+       
+        # Extract skills from PDF
+        skillsPDF = page_1_text.split("StrongSub-Skills")[1]
+        skillsPDF = skillsPDF.partition("Work Speed")[0]
+        skillsPDF = skillsPDF.split('\n')
+
         stringCleaned = " ".join(page_1_text.split())
 
         nameSubject = dict
@@ -184,13 +189,12 @@ def function7():
         # ✅Return to Client
         idSubjectFound = nameSubject["idSubjectFound"]
 
+     
         return Response(
             {
                 "scoreBar": dataSkills,
                 "name": name,
-                "concepts": correctSpillingSkillFromPdf.correctSpilling.findSkillPerCandidateFunction(
-                    idSubjectFound, stringCleaned
-                ),
+                "concepts": correctSpillingSkillFromPdf.correctSpilling.findSkillPerCandidateFunction(skillsPDF),
                 "dataMiner": dataMiner,
             }
         )
@@ -303,8 +307,6 @@ def createImages(filename, currentUserLogged):
 
     os.rename(file_path, testpdf)
     return function2(currentUserLogged)
-    """ os.rename(file_path,"./virtualStorage/test.pdf") """
-
 
 class UploadDocument(APIView):
     permission_classes = [

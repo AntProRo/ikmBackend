@@ -18,6 +18,11 @@ class UserAccount(AbstractBaseUser,PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
     phone = models.CharField(max_length=9)
+    height = models.FloatField(null=True,blank=True, default=None)
+    width = models.FloatField(null=True,blank=True, default=None)
+    x = models.FloatField(null=True,blank=True, default=None)
+    y =models.FloatField(null=True,blank=True, default=None)
+    unit = models.CharField(max_length=255, default='px')
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=True)
 

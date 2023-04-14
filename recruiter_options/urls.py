@@ -11,5 +11,7 @@ urlpatterns = [
     #Delete data
     path('deletePractice/<int:id>/',views.DeletePractice.as_view(),name='deletePracticeById'),
     path('deleteCandidate/<int:id>/',views.DeleteCandidate.as_view(),name='deleteCandidateByID'),
-    path('deleteSkill/<int:id>/',views.DeleteSkill.as_view(),name='deleteSkillByID')
+    path('deleteSkill/<int:id>/',views.DeleteSkill.as_view(),name='deleteSkillByID'),
+    #CROP options
+    path('saveCrop/', views.saveDefaultCrop.as_view(), name='DefaultCropOptions'),
 ]

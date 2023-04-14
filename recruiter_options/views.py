@@ -27,7 +27,6 @@ class processData(APIView):
     permission_classes = [
     IsAuthenticated,
 ]
-    
     # Get data
     def get (self,request):
             data = Candidate.objects.filter(recruiter=request.user)
@@ -70,8 +69,8 @@ class processData(APIView):
     def post(self, request):
         current_user = request.user
         # print (current_user.id)
-
         body = json.loads(request.body)
+        print(body)
         # get date parse
         candidateDate = parse_datetime(body["date"])
         # get id of subject
@@ -97,14 +96,19 @@ class processData(APIView):
         candidateSkills = body["skills"]
         allSkillsFound = []
 
+        def JoinWordsToMatchSkillDataBase(word):
+            word = word.lower().split()
+            return "".join(word)
+
         for i in allSkills:
-            allSkillsFound.append({i.nameSubSkill: i.id})
+            findLabel = JoinWordsToMatchSkillDataBase(i.nameSubSkill)
+            allSkillsFound.append({findLabel: i.id})
 
         for key, value in candidateSkills.items():
-            str1 = key.lower()
+            str1 = JoinWordsToMatchSkillDataBase(key)
             for key in allSkillsFound:
-                if str1 in key:
-                    print(str1, key[str1])
+                if str1 in key :
+                    #print("save",str1, key[str1])
                     score = Score()
                     score.subjectSkillId = SubjectSkills.objects.get(id=int(key[str1]))
                     score.score = value
@@ -219,3 +223,37 @@ class getSkillsBySubject(APIView):
 
         return HttpResponse(result)
         
+class saveDefaultCrop(APIView):
+    def put(self,request):
+        current_user = request.user
+        body = json.loads(request.body)
+
+        updateCropDefault = UserAccount.objects.get(id = current_user.id)
+        updateCropDefault.height = float(body["height"])
+        updateCropDefault.unit= body["unit"]
+        updateCropDefault.width = float(body["width"])
+        updateCropDefault.x = float(body["x"])
+        updateCropDefault.y = float(body["y"])
+        updateCropDefault.save()
+        return Response({"message": "Crop default saved"})
+
+
+    def get(self,request):
+    
+        print(request.user.height)
+        result = {
+            "height":request.user.height, 
+            "width":request.user.width,
+            "unit":request.user.unit,
+            "x":request.user.x,
+            "y":request.user.y,
+            }
+        result= json.dumps(result)
+        return HttpResponse(result)
+
+
+
+      
+
+   
+       

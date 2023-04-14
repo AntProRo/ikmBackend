@@ -1,2 +1,0 @@
-[phases.name]
-  nixPkgs = ["...", "poppler_utils", "tesseract5"]
