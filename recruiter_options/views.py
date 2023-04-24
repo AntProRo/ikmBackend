@@ -27,8 +27,8 @@ class processData(APIView):
     permission_classes = [
     IsAuthenticated,
 ]
-    # Get data
-    def get (self,request):
+    # Get all users data
+    def get(self,request):
             data = Candidate.objects.filter(recruiter=request.user)
             d = data.all().select_related('SubjectUserAccount')
             result= []
@@ -65,7 +65,7 @@ class processData(APIView):
             foo = json.dumps(data)
             return HttpResponse(foo)
 
-        #save documents
+        #save document information
     def post(self, request):
         current_user = request.user
         # print (current_user.id)
@@ -124,15 +124,8 @@ class DeleteCandidate(APIView):
         findCandidate = Candidate.objects.get(id=id)
         findCandidate.delete()
         return Response({"message": "Candidate Deleted"})
-
-class DeleteSkill(APIView):
-    def delete(self,request,id):
-        get_object_or_404(SubjectSkills,id=id)
-        findSkill = SubjectSkills.objects.get(id=id)
-        findSkill.delete()
-        return Response({"message": "Skill Deleted"})
-
-class PracticeControllers(APIView):
+#PRACTICE
+class CreatePractice(APIView):
     def post(self, request):
         body = json.loads(request.body)
 
@@ -147,6 +140,21 @@ class PracticeControllers(APIView):
         else:
             # your logic here
             return HttpResponse(status=500)
+        
+class UpdatePractice(APIView):
+    def put(self,request,id):
+        body = json.loads(request.body)
+        findPractice = Practice.objects.get(id=id)
+        if  not Practice.objects.filter(
+            namePractice=body["namePractice"].lower()
+        ).exists():
+            findPractice.namePractice = body["namePractice"].lower()
+            findPractice.save()
+            return Response({"message": "Practice updated"})
+        else:
+            # your logic here
+            return HttpResponse(status=500)
+
 
 class DeletePractice(APIView):
     def delete(self,request,id):
@@ -159,7 +167,6 @@ class DeletePractice(APIView):
 
 class GetAllSubjectsAndPractices(APIView):
     def get(self,request):
-
         allUserPractice = Practice.objects.filter(recruiterId = request.user)
         #listPractice = []
         listSubject = []
@@ -175,9 +182,8 @@ class GetAllSubjectsAndPractices(APIView):
         result = listSubject
         return JsonResponse(result,safe=False)
 
-class SubjectController(APIView):
+class CreateSubject(APIView):
     def post(self, request, id):
-
         findPracticeId = get_object_or_404(Practice, id=id)
         body = json.loads(request.body)
 
@@ -192,9 +198,44 @@ class SubjectController(APIView):
         else:
             # your logic here
             return HttpResponse(status=500)
+class UpdateSubject(APIView):        
+    def put(self,request,id):
+        findPracticeId = get_object_or_404(Practice, id=id)
+        body = json.loads(request.body)
+      
+        findSubject = Subject.objects.get(id=body["idSubject"])
+        if  not Subject.objects.filter(
+            nameSubject=body["nameSubject"].lower(), practiceId =id
+        ).exists():
+            findSubject.practiceId = findPracticeId
+            findSubject.nameSubject = body["nameSubject"].lower()
+            findSubject.save()
+            return Response({"message": "subject updated"})
+        else:
+            # your logic here
+            return HttpResponse(status=500)
+        
+class DeleteSubject(APIView):       
+    def delete(self,request,id):
+        get_object_or_404(Subject, id=id)
+        findSubject = Subject.objects.get(id=id)
+        findSubject.delete()
+        return Response({"message": "Subject deleted"})
 
+#SKILLS
+class GetSkillsBySubject(APIView):
+    def get(self,request,id):
+        get_object_or_404(Subject, id=id)
+        allSubjectsRelations = SubjectSkills.objects.filter(subjectId=id)
+        result = []
+        for i in allSubjectsRelations:
+            result.append({"name":i.nameSubSkill,"id":i.id})
+        result = json.dumps(result)
+        print(result)
 
-class SkillController(APIView):
+        return HttpResponse(result)
+    
+class CreateSkill(APIView):
     def post(self, request, id):
         body = json.loads(request.body)
         findSubjectId = get_object_or_404(Subject, id=id)
@@ -211,23 +252,38 @@ class SkillController(APIView):
             # your logic here
             return HttpResponse(status=500)
 
-class getSkillsBySubject(APIView):
-    def get(self,request,id):
-        get_object_or_404(Subject, id=id)
-        allSubjectsRelations = SubjectSkills.objects.filter(subjectId=id)
-        result = []
-        for i in allSubjectsRelations:
-            result.append({"name":i.nameSubSkill,"id":i.id})
-        result = json.dumps(result)
-        print(result)
-
-        return HttpResponse(result)
+class UpdateSkill(APIView):
+    def put(self, request,id):
+        body = json.loads(request.body)
+        #verify if subject exist
+        findSubject = get_object_or_404(Subject,id=id)
+        #find skill by the id skill and subject id
+        findSkill = SubjectSkills.objects.get(id= body["idSkill"],subjectId= id)
+        #verify if current nameSkill and idSubject are already created
+        if  not SubjectSkills.objects.filter(
+           nameSubSkill = body["nameSubSkill"].lower(), subjectId= id
+        ).exists():
+            findSkill.subjectId = findSubject
+            findSkill.nameSubSkill = body["nameSubSkill"].lower()
+            findSkill.save()
+            return Response({"message": "Skill updated"})
+        else:
+            # your logic here
+            return HttpResponse(status=500)
         
-class saveDefaultCrop(APIView):
+class DeleteSkill(APIView):
+    def delete(self,request,id):
+        get_object_or_404(SubjectSkills,id=id)
+        findSkill = SubjectSkills.objects.get(id=id)
+        findSkill.delete()
+        return Response({"message": "Skill Deleted"})
+
+
+#Crop options
+class DefaultCropOptions(APIView):
     def put(self,request):
         current_user = request.user
         body = json.loads(request.body)
-
         updateCropDefault = UserAccount.objects.get(id = current_user.id)
         updateCropDefault.height = float(body["height"])
         updateCropDefault.unit= body["unit"]
@@ -237,10 +293,7 @@ class saveDefaultCrop(APIView):
         updateCropDefault.save()
         return Response({"message": "Crop default saved"})
 
-
     def get(self,request):
-    
-        print(request.user.height)
         result = {
             "height":request.user.height, 
             "width":request.user.width,
